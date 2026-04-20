@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Just NO lol — The Ultimate Rejection Generator</title>
+  <meta name="description" content="Generate hilarious, creative rejection reasons with the click of a button. Powered by No-as-a-Service.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Animated background particles -->
+  <div class="bg-particles" id="bg-particles"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="logo-group">
+        <span class="logo-icon">🚫</span>
+        <h1 class="logo-text">Just <span class="accent">NO</span> lol</h1>
+      </div>
+      <p class="tagline">The world's most sophisticated rejection engine.</p>
+      <div class="counter-badge" id="counter-badge">
+        <span class="counter-dot"></span>
+        <span id="counter-text">0 rejections served</span>
+      </div>
+    </header>
+
+    <!-- Main CTA Section -->
+    <section class="cta-section" id="cta-section">
+      <!-- Current NO display -->
+      <div class="no-display" id="no-display">
+        <div class="no-display-inner" id="no-display-inner">
+          <p class="no-label">YOUR LATEST REJECTION</p>
+          <p class="no-reason" id="no-reason">Press the button to unleash the power of NO.</p>
+          <p class="no-quote" id="no-quote"></p>
+        </div>
+      </div>
+
+      <!-- The Big Button -->
+      <button class="big-no-btn" id="big-no-btn" type="button">
+        <span class="btn-emoji">💀</span>
+        <span class="btn-text">GIVE ME A NO</span>
+        <span class="btn-subtitle">click if you dare</span>
+        <div class="btn-ripple" id="btn-ripple"></div>
+      </button>
+
+      <p class="powered-by">Powered by <a href="https://github.com/hotheadhacker/no-as-a-service" target="_blank" rel="noopener">No-as-a-Service</a></p>
+    </section>
+
+    <!-- History Section -->
+    <section class="history-section" id="history-section">
+      <div class="history-header">
+        <h2 class="history-title">📜 Hall of Rejections</h2>
+        <button class="clear-btn" id="clear-btn" type="button" style="display:none;">Clear All</button>
+      </div>
+      <div class="history-list" id="history-list">
+        <div class="history-empty" id="history-empty">
+          <span class="empty-icon">🦗</span>
+          <p>No rejections yet... suspicious.</p>
+          <p class="empty-sub">Hit the button above to start your collection.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
