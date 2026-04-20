@@ -355,6 +355,62 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ============================================
+// COOKIE CONSENT
+// ============================================
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? match[2] : null;
+}
+
+function setCookie(name, value, days) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Lax`;
+}
+
+function initConsent() {
+  const banner = document.getElementById('consent-banner');
+  const acceptBtn = document.getElementById('consent-accept');
+  const declineBtn = document.getElementById('consent-decline');
+
+  if (!banner) return;
+
+  const consent = getCookie('justno-consent');
+
+  if (consent) {
+    // Already consented or declined — hide banner
+    banner.style.display = 'none';
+    return;
+  }
+
+  // Show banner after a short delay
+  setTimeout(() => {
+    banner.classList.add('visible');
+  }, 1500);
+
+  acceptBtn.addEventListener('click', () => {
+    setCookie('justno-consent', 'accepted', 365);
+    banner.classList.remove('visible');
+    banner.classList.add('hidden');
+    showToast('👍 Cool! Your rejections are being saved locally.');
+  });
+
+  declineBtn.addEventListener('click', () => {
+    setCookie('justno-consent', 'declined', 365);
+    banner.classList.remove('visible');
+    banner.classList.add('hidden');
+    // Clear any existing localStorage data
+    localStorage.removeItem('justno-history');
+    history = [];
+    totalCount = 0;
+    renderHistory();
+    updateCounter();
+    showToast('🤷 No worries. History won\'t be saved.');
+  });
+}
+
+// ============================================
 // START
 // ============================================
 init();
+initConsent();
+
