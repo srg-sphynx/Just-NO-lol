@@ -47,6 +47,7 @@ const historyList = document.getElementById('history-list');
 const historyEmpty = document.getElementById('history-empty');
 const clearBtn = document.getElementById('clear-btn');
 const counterText = document.getElementById('counter-text');
+const copyMainBtn = document.getElementById('copy-main-btn');
 
 // State
 let history = [];
@@ -76,6 +77,16 @@ function init() {
   // Event listeners
   bigNoBtn.addEventListener('click', handleNoClick);
   clearBtn.addEventListener('click', handleClear);
+
+  // Main copy button
+  if (copyMainBtn) {
+    copyMainBtn.addEventListener('click', () => {
+      const reason = noReason.textContent;
+      if (reason && reason !== 'Press the button to unleash the power of NO.') {
+        copyToClipboard(reason, copyMainBtn);
+      }
+    });
+  }
 }
 
 // ============================================
@@ -129,6 +140,11 @@ async function handleNoClick(e) {
     noQuote.classList.add('visible');
 
     noDisplay.classList.add('active');
+
+    // Show copy button
+    if (copyMainBtn) {
+      copyMainBtn.style.display = 'inline-flex';
+    }
 
     // Screen shake
     document.body.classList.add('shake');
@@ -208,7 +224,18 @@ function createHistoryItem(entry, number) {
         <span class="history-time">${escapeHTML(entry.time)}</span>
       </div>
     </div>
+    <button class="copy-btn history-copy-btn" type="button" title="Copy to clipboard">
+      <span class="copy-icon">📋</span>
+    </button>
   `;
+
+  // Attach copy handler
+  const copyBtn = div.querySelector('.history-copy-btn');
+  copyBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    copyToClipboard(entry.reason, copyBtn);
+  });
+
   return div;
 }
 
@@ -252,6 +279,41 @@ function escapeHTML(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+async function copyToClipboard(text, btn) {
+  try {
+    await navigator.clipboard.writeText(text);
+
+    // Visual feedback
+    const iconEl = btn.querySelector('.copy-icon');
+    const labelEl = btn.querySelector('.copy-label');
+    const origIcon = iconEl.textContent;
+    const origLabel = labelEl ? labelEl.textContent : null;
+
+    iconEl.textContent = '✅';
+    if (labelEl) labelEl.textContent = 'Copied!';
+    btn.classList.add('copied');
+
+    showToast('📋 Copied to clipboard!');
+
+    setTimeout(() => {
+      iconEl.textContent = origIcon;
+      if (labelEl) labelEl.textContent = origLabel;
+      btn.classList.remove('copied');
+    }, 1500);
+  } catch (err) {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    showToast('📋 Copied to clipboard!');
+  }
 }
 
 // ============================================
