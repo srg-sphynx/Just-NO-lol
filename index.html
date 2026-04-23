@@ -11,6 +11,15 @@
   <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
+  <!-- Rate Limit Info Banner -->
+  <div class="rate-limit-banner" id="rate-limit-banner">
+    <div class="rate-limit-inner">
+      <span class="rate-limit-icon">⚡</span>
+      <p class="rate-limit-text"><strong>Heads up!</strong> Both apps use free-tier APIs — <strong>Just NO lol</strong> (NaaS) &amp; <strong>I Hate Responsibility</strong> (BaaS) are rate-limited to ~100 requests/hour. Chill between clicks!</p>
+      <button class="rate-limit-close" id="rate-limit-close" type="button" aria-label="Dismiss">&times;</button>
+    </div>
+  </div>
+
   <!-- Animated background particles -->
   <div class="bg-particles" id="bg-particles"></div>
 
@@ -66,6 +75,22 @@
           <p>No rejections yet... suspicious.</p>
           <p class="empty-sub">Hit the button above to start your collection.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- Cross-Promotion Banner -->
+    <section class="cross-promo" id="cross-promo">
+      <div class="cross-promo-inner">
+        <div class="cross-promo-badge">🤷</div>
+        <div class="cross-promo-content">
+          <p class="cross-promo-label">FROM THE SAME UNIVERSE</p>
+          <h3 class="cross-promo-title">Also try <span class="cross-promo-accent">I Hate Responsibility</span></h3>
+          <p class="cross-promo-desc">The world's most sophisticated excuse generator. Dodge blame with style — powered by Blame-as-a-Service.</p>
+        </div>
+        <a href="https://srg-sphynx.github.io/I-hate-responsibility/" target="_blank" rel="noopener" class="cross-promo-btn" id="cross-promo-btn">
+          <span>Try it out</span>
+          <span class="cross-promo-arrow">→</span>
+        </a>
       </div>
     </section>
 
